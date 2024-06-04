@@ -5,10 +5,8 @@ export const App = () => {
 	const [value, setValue] = useState('');
 	const [list, setList] = useState([]);
 	const [error, setError] = useState('');
-	const id = Date.now();
-	const updatedList = [...list, { id, value }];
 	let isValueValid = true;
-	if (value < 3) {
+	if (value.length < 3) {
 		isValueValid = false;
 	}
 
@@ -24,6 +22,8 @@ export const App = () => {
 
 	const onAddButtonClick = () => {
 		if (isValueValid) {
+			const id = Date.now();
+			const updatedList = [...list, { id, value }];
 			setList(updatedList);
 			setValue('');
 			setError('');
@@ -57,7 +57,7 @@ export const App = () => {
 				<div className={styles.listContainer}>
 					<h2 className={styles.listHeading}>Список</h2>
 					<p className={styles.noMarginText}>
-						{list.length - 1 ? 'Нет добавленных элементов' : ''}
+						{list.length > 0 ? '' : 'Нет добавленных элементов'}
 					</p>
 					<ul className={styles.list}>
 						{list.map(({ id, value }) => (
